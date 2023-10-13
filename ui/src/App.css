@@ -1,15 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap');
+
 .wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /*TODO: Figure out why 100vh moves you outside of viewport*/
+  height: 98vh;
 }
 
-
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap');
-
-/* Define a class selector, not an HTML element selector */
 .h1 {
   font-family: "JetBrains Mono", monospace;
   font-weight: 800;
@@ -18,7 +17,6 @@
   padding: 5px;
 }
 
-/* Apply the font to the .p class with a font-weight of 400 */
 .p {
   font-family: "JetBrains Mono", monospace;
   font-weight: 400;
@@ -45,8 +43,6 @@
 
 }
 
-/*TODO: Extensive CSS rework, in what framework? Tailwind?*/
-
 .errors {
   color: green;
 }
@@ -57,11 +53,12 @@ button {
   font-family: "JetBrains Mono";
   font-weight: 400;
   font-size: 1.2em;
-  border-radius: 17px;
+  border-radius: 17vh;
   cursor: pointer;
   color: #fff;
-  background-color: #01506f;
+  background-color: #8dd8ff;
   text-align: center;
+  box-shadow: none;
 }
 
 .login-page {
@@ -73,7 +70,7 @@ button {
 }
 
 .logo-section {
-  flex: 1; /* Takes up 2/3 of the screen on large screens */
+  flex: 0.5; /* Takes up 2/3 of the screen on large screens */
 }
 
 .content-section {
