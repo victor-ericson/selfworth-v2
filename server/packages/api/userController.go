@@ -22,6 +22,7 @@ func Pong(c *fiber.Ctx) error {
 }
 
 func CreateUser(c *fiber.Ctx, dbConn *sql.DB) error {
+	//creates new user in DB
 	user := &db.User{}
 
 	if err := c.BodyParser(user); err != nil {
@@ -31,11 +32,12 @@ func CreateUser(c *fiber.Ctx, dbConn *sql.DB) error {
 	if errs := utils.ValidateUser(*user); len(errs) > 0 {
 		return c.Status(http.StatusUnprocessableEntity).JSON(&fiber.Map{"success": false, "errors": errs})
 	}
-
+	//if user already exists
 	if user.UserExists(dbConn) {
 		return c.Status(400).JSON(&fiber.Map{"success": false, "errors": []string{"email already exists"}})
 	}
 
+	//password hashing using bcrypt
 	user.HashPassword()
 	_, err := dbConn.Query(db.CreateUserQuery, user.Name, user.Password, user.Email)
 	if err != nil {
@@ -44,7 +46,9 @@ func CreateUser(c *fiber.Ctx, dbConn *sql.DB) error {
 	return c.JSON(&fiber.Map{"success": true})
 }
 
+// creating a new session
 func Session(c *fiber.Ctx, dbConn *sql.DB) error {
+	//new token
 	tokenUser := c.Locals("user").(*jwt.Token)
 	claims := tokenUser.Claims.(jwt.MapClaims)
 	userID, ok := claims["id"].(string)
@@ -52,7 +56,7 @@ func Session(c *fiber.Ctx, dbConn *sql.DB) error {
 	if !ok {
 		return c.SendStatus(http.StatusUnauthorized)
 	}
-
+	//creates new user
 	user := &db.User{}
 	if err := dbConn.QueryRow(db.GetUserByIDQuery, userID).
 		Scan(&user.ID, &user.Name, &user.Password, &user.Email, &user.CreatedAt, &user.UpdatedAt); err != nil {
@@ -85,6 +89,7 @@ func Login(c *fiber.Ctx, dbConn *sql.DB) error {
 	}
 
 	//expiration time of the token ->30 mins
+	//TODO: change expiration time?
 	expirationTime := time.Now().Add(30 * time.Minute)
 
 	user.Password = ""

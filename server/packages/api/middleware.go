@@ -8,6 +8,7 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
+// simple middleware for authorizing session
 func AuthorizeSession(c *fiber.Ctx) error {
 	tokenStr := c.Get("Authorization")
 	if tokenStr == "" {

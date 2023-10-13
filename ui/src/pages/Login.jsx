@@ -23,6 +23,7 @@ export default ({history}) => {
         const {email, password} = login
         try {
             setIsSubmitting(true)
+            //fetching my endpoints, here I fetch my Login from
             const res = await fetch(Endpoints.login, {
                 method: "POST",
                 body: JSON.stringify({

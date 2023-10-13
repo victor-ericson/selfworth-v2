@@ -2,12 +2,11 @@ package api
 
 import (
 	"database/sql"
-	"goapp/packages/config"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
+	"goapp/packages/config"
 )
 
 func WithDB(fn func(c *fiber.Ctx, db *sql.DB) error, db *sql.DB) func(c *fiber.Ctx) error {
@@ -22,6 +21,9 @@ func httpServer(db *sql.DB) *fiber.App {
 	app.Use(requestid.New())
 
 	api := app.Group("/api")
+
+	//TODO: FIGURE OUT WHY SAFARI DOES NOT ALLOW ACCESS, IS SOMETHING WRONG WITH HEADER?
+	//TODO: Currently works with Firefox but not with Safari
 	api.Use(cors.New(cors.Config{
 		AllowOrigins:     config.Config[config.CLIENT_URL],
 		AllowCredentials: true,
