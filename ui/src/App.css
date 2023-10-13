@@ -11,11 +11,14 @@
   margin: 20px;
   height: 2rem;
   font-size: 1.2em;
+  border-radius: 17px;
   width: 300px;
   border: 3px solid #d2ddec;
   padding: 10px;
   outline: 0;
 }
+
+/*TODO: Extensive CSS rework, in what framework? Tailwind?*/
 
 .errors {
   color: green;
