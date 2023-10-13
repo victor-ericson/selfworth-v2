@@ -50,37 +50,21 @@ export default ({history}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="wrapper">
+            <div className="login-page">
                 <h1 className="h1">SelfWorth</h1>
-                <p className="p">Because nothing makes you save more money than knowing how you spend it</p>
-                <input
-                    className="input"
-                    type="email"
-                    placeholder="email"
-                    value={email}
-                    name="email"
-                    onChange={handleChange}
-                    required
-                />
-
-                <input
-                    className="input"
-                    type="password"
-                    placeholder="password"
-                    value={password}
-                    name="password"
-                    onChange={handleChange}
-                    required
-                />
-
-                <button disabled={isSubmitting} type="submit">
-                    {isSubmitting ? "....." : "login"}
-                </button>
-                <br/>
-                <a href="/register">{"create account"}</a>
-                <br/>
-                <Errors errors={errors}/>
+                <div className="content-section">
+                    <p className="p">Because nothing makes you save more money than knowing how you spend it</p>
+                    <input className="input" type="email" placeholder="Email" value={email} name="email"
+                           onChange={handleChange} required/>
+                    <input className="input" type="password" placeholder="Password" value={password} name="password"
+                           onChange={handleChange} required/>
+                    <button disabled={isSubmitting} type="submit">{isSubmitting ? "....." : "Login"}</button>
+                    <br/>
+                    <a href="/register" className="p" style={{ fontSize: '0.8rem' }}>Create Account</a>
+                    <Errors errors={errors}/>
+                </div>
             </div>
+
         </form>
     )
 }

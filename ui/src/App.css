@@ -7,31 +7,42 @@
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap');
 
 /* Define a class selector, not an HTML element selector */
 .h1 {
-  font-family: "JetBrains Mono", monospace; /* Use the correct font-family */
+  font-family: "JetBrains Mono", monospace;
   font-weight: 800;
-  font-size: 90px;
+  font-size: 7rem;
+  margin: 5px;
+  padding: 5px;
 }
 
+/* Apply the font to the .p class with a font-weight of 400 */
 .p {
   font-family: "JetBrains Mono", monospace;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 1.2rem;
+  margin: 5px;
+  padding: 5px;
 }
 
 .input {
   width: 50vw;
-  margin: 20px;
+  margin: 10px;
   height: 2rem;
   font-size: 1.2em;
+  font-family: "JetBrains Mono";
+  font-weight: 400;
   border-radius: 17px;
   width: 300px;
   border: 3px solid #d2ddec;
-  padding: 10px;
+  padding: 5px;
   outline: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
 }
 
 /*TODO: Extensive CSS rework, in what framework? Tailwind?*/
@@ -43,9 +54,34 @@
 button {
   width: 150px;
   height: 40px;
+  font-family: "JetBrains Mono";
+  font-weight: 400;
   font-size: 1.2em;
   border-radius: 17px;
   cursor: pointer;
   color: #fff;
   background-color: #01506f;
+  text-align: center;
+}
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.logo-section {
+  flex: 1; /* Takes up 2/3 of the screen on large screens */
+}
+
+.content-section {
+  flex: 0; /* Takes up 1/3 of the screen on large screens */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: center; /* Vertically center content */
+  text-align: center;
+  align-items: center ;
+  width: 40rem; /* Center align content */
 }
