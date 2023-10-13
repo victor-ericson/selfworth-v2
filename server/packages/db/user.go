@@ -20,6 +20,7 @@ type CreateReset struct {
 	Email string `json:"email"`
 }
 
+// TODO: Build upon this user struct
 type User struct {
 	ID        string `json:"id,omitempty"`
 	Password  string `json:"password,omitempty"`
