@@ -51,8 +51,8 @@ export default ({history}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="wrapper">
-                <h1>Login</h1>
-
+                <h1 className="h1">SelfWorth</h1>
+                <p className="p">Because nothing makes you save more money than knowing how you spend it</p>
                 <input
                     className="input"
                     type="email"

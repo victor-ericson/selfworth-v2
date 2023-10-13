@@ -6,6 +6,22 @@
   height: 100vh;
 }
 
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap');
+
+/* Define a class selector, not an HTML element selector */
+.h1 {
+  font-family: "JetBrains Mono", monospace; /* Use the correct font-family */
+  font-weight: 800;
+  font-size: 90px;
+}
+
+.p {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 400;
+  font-size: 24px;
+}
+
 .input {
   width: 50vw;
   margin: 20px;
