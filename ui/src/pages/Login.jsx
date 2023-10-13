@@ -61,6 +61,7 @@ export default ({history}) => {
                                onChange={handleChange} required/>
                         <button disabled={isSubmitting} type="submit">{isSubmitting ? "....." : "Login"}</button>
                         <br/>
+                        {/*TODO: CHANGE THE STYLING OF THIS*/}
                         <a href="/register" className="p" style={{fontSize: '0.8rem'}}>Create Account</a>
                         <Errors errors={errors}/>
                     </div>

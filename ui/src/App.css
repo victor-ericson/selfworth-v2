@@ -6,7 +6,17 @@
   justify-content: center;
   align-items: center;
   /*TODO: Figure out why 100vh moves you outside of viewport*/
-  height: 98vh;
+  height: 100vh;
+  background: linear-gradient(135deg, #fc96e5, #f6f1f3);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;/* Adjust the colors as needed */
+
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
 }
 
 .h1 {
@@ -50,13 +60,13 @@
 button {
   width: 150px;
   height: 40px;
-  font-family: "JetBrains Mono";
+  font-family: "JetBrains Mono", monospace;
   font-weight: 400;
   font-size: 1.2em;
   border-radius: 17vh;
   cursor: pointer;
-  color: #fff;
-  background-color: #8dd8ff;
+  color: #000000;
+  background-color: #ffffff;
   text-align: center;
   box-shadow: none;
 }
@@ -67,10 +77,12 @@ button {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .logo-section {
-  flex: 0.5; /* Takes up 2/3 of the screen on large screens */
+  flex: 2; /* Takes up 2/3 of the screen on large screens */
 }
 
 .content-section {
@@ -80,5 +92,7 @@ button {
   justify-content: center; /* Vertically center content */
   text-align: center;
   align-items: center ;
-  width: 40rem; /* Center align content */
+  width: 40rem;
+  margin: 0;
+  padding: 0;/* Center align content */
 }
