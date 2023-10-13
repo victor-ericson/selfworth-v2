@@ -7,7 +7,7 @@
   align-items: center;
   /*TODO: Figure out why 100vh moves you outside of viewport*/
   height: 100vh;
-  background: linear-gradient(135deg, #fc96e5, #f6f1f3);
+  background: #e8cece;
   margin: 0;
   padding: 0;
   overflow: hidden;/* Adjust the colors as needed */
@@ -36,21 +36,19 @@ body, html {
 }
 
 .input {
-  width: 50vw;
+  width: 20vw;
   margin: 10px;
   height: 2rem;
   font-size: 1.2em;
   font-family: "JetBrains Mono";
   font-weight: 400;
-  border-radius: 17px;
-  width: 300px;
-  border: 3px solid #d2ddec;
+  border: none;
+  border-radius: 30px;
   padding: 5px;
-  outline: 0;
+  background: #000000;
   text-align: center;
   display: flex;
   justify-content: center;
-
 }
 
 .errors {
@@ -60,12 +58,15 @@ body, html {
 button {
   width: 150px;
   height: 40px;
+  padding: 5px;
+  margin: 10px;
   font-family: "JetBrains Mono", monospace;
   font-weight: 400;
   font-size: 1.2em;
-  border-radius: 17vh;
+  border: none;
+  border-radius: 30vh;
   cursor: pointer;
-  color: #000000;
+  color: #30343f;
   background-color: #ffffff;
   text-align: center;
   box-shadow: none;
