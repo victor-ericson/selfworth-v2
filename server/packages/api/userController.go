@@ -68,6 +68,7 @@ func Session(c *fiber.Ctx, dbConn *sql.DB) error {
 	return c.JSON(&fiber.Map{"success": true, "user": user})
 }
 
+// TODO: rewrite func to accomodate user asset data
 func Dashboard(c *fiber.Ctx, dbConn *sql.DB) error {
 
 	tokenUser := c.Locals("user").(*jwt.Token)
