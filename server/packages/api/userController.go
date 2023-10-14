@@ -48,7 +48,7 @@ func CreateUser(c *fiber.Ctx, dbConn *sql.DB) error {
 
 // creating a new session
 func Session(c *fiber.Ctx, dbConn *sql.DB) error {
-	//new token
+	//retrieves the
 	tokenUser := c.Locals("user").(*jwt.Token)
 	claims := tokenUser.Claims.(jwt.MapClaims)
 	userID, ok := claims["id"].(string)
@@ -66,6 +66,28 @@ func Session(c *fiber.Ctx, dbConn *sql.DB) error {
 	}
 	user.Password = ""
 	return c.JSON(&fiber.Map{"success": true, "user": user})
+}
+
+func Dashboard(c *fiber.Ctx, dbConn *sql.DB) error {
+
+	tokenUser := c.Locals("user").(*jwt.Token)
+	claims := tokenUser.Claims.(jwt.MapClaims)
+	userID, ok := claims["id"].(string)
+
+	if !ok {
+		return c.SendStatus(http.StatusUnauthorized)
+	}
+
+	user := &db.User{}
+	if err := dbConn.QueryRow(db.GetUserByIDQuery, userID).
+		Scan(&user.ID, &user.Name, &user.Password, &user.Email, &user.CreatedAt, &user.UpdatedAt); err != nil {
+		if err == sql.ErrNoRows {
+			return c.Status(http.StatusUnauthorized).JSON(fiber.Map{"success": false, "errors": []string{"Incorrect credentials"}})
+		}
+	}
+	user.Password = ""
+	return c.JSON(&fiber.Map{"success": true, "user": user})
+
 }
 
 func Login(c *fiber.Ctx, dbConn *sql.DB) error {

@@ -41,6 +41,7 @@ func httpServer(db *sql.DB) *fiber.App {
 
 	// authed routes
 	api.Get("/session/", AuthorizeSession, WithDB(Session, db))
+	api.Get("/dashboard", AuthorizeSession, WithDB(Dashboard, db))
 
 	return app
 }

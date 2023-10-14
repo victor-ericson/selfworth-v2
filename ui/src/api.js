@@ -8,4 +8,5 @@ export const Endpoints = {
   register: `${apiURl}/api/register`,
   session: `${apiURl}/api/session`,
   logout: `${apiURl}/api/logout`,
+  dashboard: `${apiURl}/api/dashboard`,
 }

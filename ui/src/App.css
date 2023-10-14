@@ -42,10 +42,11 @@ body, html {
   font-size: 1.2em;
   font-family: "JetBrains Mono";
   font-weight: 400;
+  color: #e8cece;
   border: none;
   border-radius: 30px;
   padding: 5px;
-  background: #000000;
+  background: #ffffff;
   text-align: center;
   display: flex;
   justify-content: center;
