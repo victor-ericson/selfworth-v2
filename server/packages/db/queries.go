@@ -8,7 +8,8 @@ const (
 	CreateUserQuery         = `INSERT INTO users(id, name, password, email) VALUES (DEFAULT, $1 , $2, $3);`
 	GetUserByIDQuery        = `SELECT * FROM users WHERE id = $1`
 	GetUserByEmailQuery     = `SELECT * FROM users WHERE email = $1`
-	CreateUserAssetQuery    = `INSERT INTO assets(asset(asset_id, asset_name, purchase_price, purchase_date, current_price, current_date, asset_price_history)) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)`
+	CreateUserAssetQuery    = `INSERT INTO assets(asset_id, user_id, asset_name, purchase_price, purchase_date, current_price, "current_date") VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)`
+	GetAssetByID            = `SELECT * FROM assets WHERE asset_id = $1`
 )
 
 //type Asset struct {

@@ -46,9 +46,7 @@ func CreateUser(c *fiber.Ctx, dbConn *sql.DB) error {
 	return c.JSON(&fiber.Map{"success": true})
 }
 
-// creating a new session
-func Session(c *fiber.Ctx, dbConn *sql.DB) error {
-	//retrieves the
+func GetUser(c *fiber.Ctx, dbConn *sql.DB) error {
 	tokenUser := c.Locals("user").(*jwt.Token)
 	claims := tokenUser.Claims.(jwt.MapClaims)
 	userID, ok := claims["id"].(string)
@@ -56,21 +54,64 @@ func Session(c *fiber.Ctx, dbConn *sql.DB) error {
 	if !ok {
 		return c.SendStatus(http.StatusUnauthorized)
 	}
-	//creates new user
+
+	// Fetch user information (following GetUser semantics)
 	user := &db.User{}
-	if err := dbConn.QueryRow(db.GetUserByIDQuery, userID).
-		Scan(&user.ID, &user.Name, &user.Password, &user.Email, &user.CreatedAt, &user.UpdatedAt); err != nil {
+	err := dbConn.QueryRow(db.GetUserByIDQuery, userID).
+		Scan(&user.ID, &user.Name, &user.Password, &user.Email, &user.CreatedAt, &user.UpdatedAt)
+
+	if err != nil {
 		if err == sql.ErrNoRows {
 			return c.Status(http.StatusUnauthorized).JSON(fiber.Map{"success": false, "errors": []string{"Incorrect credentials"}})
 		}
+		return err // You might want to handle other database errors differently
 	}
 	user.Password = ""
-	return c.JSON(&fiber.Map{"success": true, "user": user})
+
+	// Fetch assets data
+	assets, err := fetchAssetsByUserID(dbConn, userID)
+	if err != nil {
+		return err
+	}
+
+	// Create a combined response structure
+	response := fiber.Map{"success": true, "user": user, "assets": assets}
+	return c.JSON(response)
 }
 
-// TODO: rewrite func to accomodate user asset data
-func Dashboard(c *fiber.Ctx, dbConn *sql.DB) error {
+func GetUserWithAssets(c *fiber.Ctx, dbConn *sql.DB) error {
 
+}
+
+//TODO: REWRITE this function
+func fetchAssetsByUserID(dbConn *sql.DB, userID string) ([]db.Asset, error) {
+	assets := []db.Asset{}
+
+	rows, err := dbConn.Query("SELECT * FROM assets WHERE user_id = $1", userID)
+	if err != nil {
+		return assets, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		asset := db.Asset{}
+		if err := rows.Scan(&asset.AssetID, &asset.AssetName, &asset.CurrentPrice, &asset.CurrentDate, &asset.PurchasePrice, &asset.PurchaseDate, &asset.AssetPriceHistory); err != nil {
+			return assets, err
+		}
+		assets = append(assets, asset)
+	}
+
+	if err := rows.Err(); err != nil {
+		return assets, err
+	}
+
+	return assets, nil
+}
+
+
+// creating a new session
+func Session(c *fiber.Ctx, dbConn *sql.DB) error {
+	//retrieves the user
 	tokenUser := c.Locals("user").(*jwt.Token)
 	claims := tokenUser.Claims.(jwt.MapClaims)
 	userID, ok := claims["id"].(string)
@@ -78,7 +119,7 @@ func Dashboard(c *fiber.Ctx, dbConn *sql.DB) error {
 	if !ok {
 		return c.SendStatus(http.StatusUnauthorized)
 	}
-
+	//retrieves the user
 	user := &db.User{}
 	if err := dbConn.QueryRow(db.GetUserByIDQuery, userID).
 		Scan(&user.ID, &user.Name, &user.Password, &user.Email, &user.CreatedAt, &user.UpdatedAt); err != nil {
@@ -87,8 +128,11 @@ func Dashboard(c *fiber.Ctx, dbConn *sql.DB) error {
 		}
 	}
 	user.Password = ""
-	return c.JSON(&fiber.Map{"success": true, "user": user})
 
+	assets :=
+
+
+	return c.JSON(&fiber.Map{"success": true, "user": user})
 }
 
 func Login(c *fiber.Ctx, dbConn *sql.DB) error {
