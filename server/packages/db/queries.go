@@ -10,6 +10,7 @@ const (
 	GetUserByEmailQuery     = `SELECT * FROM users WHERE email = $1`
 	CreateUserAssetQuery    = `INSERT INTO assets(asset_id, user_id, asset_name, purchase_price, purchase_date, current_price, "current_date") VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)`
 	GetAssetByID            = `SELECT * FROM assets WHERE asset_id = $1`
+	GetAllAssetsQuery       = `SELECT * FROM assets WHERE user_id = $1`
 )
 
 //type Asset struct {

@@ -34,6 +34,7 @@ type User struct {
 
 type Asset struct {
 	AssetID           int          `json:"asset_id,omitempty"`
+	UserID            string       `json:"user_id,omitempty"`
 	AssetName         string       `json:"asset_name,omitempty"`
 	PurchasePrice     float64      `json:"purchase_price,omitempty"`
 	PurchaseDate      time.Time    `json:"purchase_date,omitempty"`

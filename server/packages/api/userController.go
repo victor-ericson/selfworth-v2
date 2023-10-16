@@ -21,6 +21,7 @@ func Pong(c *fiber.Ctx) error {
 	return c.SendString("pong")
 }
 
+// User creation
 func CreateUser(c *fiber.Ctx, dbConn *sql.DB) error {
 	//creates new user in DB
 	user := &db.User{}
@@ -69,6 +70,7 @@ func GetUser(c *fiber.Ctx, dbConn *sql.DB) error {
 	user.Password = ""
 
 	// Fetch assets data
+	//TODO: TEST IF WORKS
 	assets, err := fetchAssetsByUserID(dbConn, userID)
 	if err != nil {
 		return err
@@ -79,20 +81,19 @@ func GetUser(c *fiber.Ctx, dbConn *sql.DB) error {
 	return c.JSON(response)
 }
 
-func GetUserWithAssets(c *fiber.Ctx, dbConn *sql.DB) error {
-
-}
-
-//TODO: REWRITE this function
+// TODO: TEST IF WORKS
 func fetchAssetsByUserID(dbConn *sql.DB, userID string) ([]db.Asset, error) {
+	//creates an assets array
 	assets := []db.Asset{}
 
-	rows, err := dbConn.Query("SELECT * FROM assets WHERE user_id = $1", userID)
+	//iterates through every asset in database with the userID
+	rows, err := dbConn.Query(db.GetAllAssetsQuery, userID)
 	if err != nil {
 		return assets, err
 	}
 	defer rows.Close()
 
+	//for each row, scan the asset and append it to the assets array
 	for rows.Next() {
 		asset := db.Asset{}
 		if err := rows.Scan(&asset.AssetID, &asset.AssetName, &asset.CurrentPrice, &asset.CurrentDate, &asset.PurchasePrice, &asset.PurchaseDate, &asset.AssetPriceHistory); err != nil {
@@ -107,7 +108,6 @@ func fetchAssetsByUserID(dbConn *sql.DB, userID string) ([]db.Asset, error) {
 
 	return assets, nil
 }
-
 
 // creating a new session
 func Session(c *fiber.Ctx, dbConn *sql.DB) error {
@@ -128,9 +128,6 @@ func Session(c *fiber.Ctx, dbConn *sql.DB) error {
 		}
 	}
 	user.Password = ""
-
-	assets :=
-
 
 	return c.JSON(&fiber.Map{"success": true, "user": user})
 }
